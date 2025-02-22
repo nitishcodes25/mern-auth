@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { signinFailure, signinStarted, signinSuccess } from "../store/slice/userSlice";
+import OAuth from "../components/OAuth";
 
 export default function Signup() {
   const {loading, error} = useSelector(state => state.user)
@@ -59,9 +60,10 @@ export default function Signup() {
           className="bg-slate-100 p-3 rounded-lg "
           onChange={onChangeHandler}
         />
-        <button disabled={loading} className="bg-slate-700 p-3 rounded-lg text-white my-3 uppercase hover:opacity-95 disabled:opacity-80">
+        <button disabled={loading} className="bg-slate-700 p-3 rounded-lg text-white mt-3 uppercase hover:opacity-95 disabled:opacity-80">
           {loading? 'Loading': 'sign up'}
         </button>
+         <OAuth/>
       </form>
       <div className="flex gap-2">
         <p>Have an account?</p>
