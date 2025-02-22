@@ -46,7 +46,7 @@ export default function Signup() {
         <input
           type="email"
           id="email"
-          placeholder="email"
+          placeholder="Email"
           className="bg-slate-100 p-3 rounded-lg "
           onChange={onChangeHandler}
         />
