@@ -1,12 +1,12 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Signin from './pages/signin'
-import Signup from './pages/signup'
-import About from './pages/about'
-import Home from './pages/home'
-import Profile from './pages/Profile'
-import Header from './components/Header'
-import PrivateRoute from './components/PrivateRoute'
+import Signin from './pages/signin.jsx'
+import Signup from './pages/signup.jsx'
+import About from './pages/about.jsx'
+import Home from './pages/home.jsx'
+import Profile from './pages/Profile.jsx'
+import Header from './components/Header.jsx'
+import PrivateRoute from './components/PrivateRoute.jsx'
 
 const App = () => {
   return (
