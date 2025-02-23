@@ -36,7 +36,6 @@ export const signin = async (req, res, next) => {
 
 export const googlesignin = async (req, res, next) => {
   const {username, email,profilePicture } = req.body; 
-  console.log('profile',profilePicture)
   try {
     const user = await User.findOne({ email });
     console.log({user})
@@ -65,3 +64,12 @@ export const googlesignin = async (req, res, next) => {
     next(err);
   }
 };
+
+export const signout = (req,res,next) => {
+  try{
+    res.clearCookie('access_token').status(200).json("Sign out sucessful")
+  }
+  catch(err){
+    next(err)
+  }
+}

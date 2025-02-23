@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector,useDispatch } from "react-redux";
-import { deleteFailure, deleteStarted, deleteSuccess, updateFailure, updateStarted, updateSuccess } from "../store/slice/userSlice";
+import { deleteFailure, deleteStarted, deleteSuccess, resetState, updateFailure, updateStarted, updateSuccess } from "../store/slice/userSlice";
 
 export default function Profile() {
   const { currentUser,loading,error } = useSelector((state) => state.user);
@@ -62,6 +62,21 @@ export default function Profile() {
       dispatch(deleteFailure(err))
     }
   } 
+
+  const handleSignout = async() => {
+    try{
+      const res = await fetch(`/api/auth/signout`,{
+        method: "GET",
+        headers: {
+          "Content-Type": 'application/json'
+        },
+      })
+      dispatch(resetState())
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
   return (
     <div className="max-w-lg mx-auto p-3">
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
@@ -101,7 +116,7 @@ export default function Profile() {
       </form>
       <div className="flex justify-between mt-5">
         <span className="text-red-500 cursor-pointer" onClick={handleDelete}>Delete Account</span>
-        <span className="text-red-500 cursor-pointer">Sign out</span>
+        <span className="text-red-500 cursor-pointer" onClick={handleSignout}>Sign out</span>
       </div>
       <p className="text-red-500 mt-5">{error && error.message}</p>
       <p className="text-green-500 mt-5">{isUpdateSuccess && "User data updated succesfully!!"}</p>
