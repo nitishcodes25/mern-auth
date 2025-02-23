@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector,useDispatch } from "react-redux";
-import { updateFailure, updateStarted, updateSuccess } from "../store/slice/userSlice";
+import { deleteFailure, deleteStarted, deleteSuccess, updateFailure, updateStarted, updateSuccess } from "../store/slice/userSlice";
 
 export default function Profile() {
   const { currentUser,loading,error } = useSelector((state) => state.user);
@@ -38,6 +38,28 @@ export default function Profile() {
     }
     catch(err){
       dispatch(updateFailure(err))
+    }
+  } 
+  
+  const handleDelete = async(e) => {
+    try{
+      dispatch(deleteStarted())
+      const res = await fetch(`/api/user/deleteUser/${currentUser._id}`,{
+        method: "DELETE",
+        headers: {
+          "Content-Type": 'application/json'
+        },
+      })
+      const data = await res.json()
+      console.log("data",data)
+      if(data.success === false){
+        dispatch(deleteFailure(data))
+        return
+      }
+      dispatch(deleteSuccess(data))
+    }
+    catch(err){
+      dispatch(deleteFailure(err))
     }
   } 
   return (
@@ -78,7 +100,7 @@ export default function Profile() {
         </button>
       </form>
       <div className="flex justify-between mt-5">
-        <span className="text-red-500 cursor-pointer">Delete Account</span>
+        <span className="text-red-500 cursor-pointer" onClick={handleDelete}>Delete Account</span>
         <span className="text-red-500 cursor-pointer">Sign out</span>
       </div>
       <p className="text-red-500 mt-5">{error && error.message}</p>
